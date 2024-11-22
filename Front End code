@@ -1,0 +1,52 @@
+//Standard Input Output Library
+
+#include <stdio.h>
+#include <string.h>  
+#define MAX_CARS 100 
+#define MAX_LENGTH 50
+
+// Structure to hold car registration details
+typedef struct {
+    char carNumber[MAX_LENGTH];
+    char owner[MAX_LENGTH];
+    char phoneNumber[MAX_LENGTH];
+    char location[MAX_LENGTH];
+} CarRegistration;
+
+// Function to search for car details
+void searchCar(CarRegistration cars[], int count, const char* carNumber) {
+    for (int i = 0; i < count; i++) {
+        if (strcmp(cars[i].carNumber, carNumber) == 0) {
+            printf("Car Number: %s\n", cars[i].carNumber);
+            printf("Owner: %s\n", cars[i].owner);
+            printf("Phone Number: %s\n", cars[i].phoneNumber);
+            printf("Location: %s\n", cars[i].location);
+            return;
+        }
+    }
+    printf("Car number %s is not registered in the database.\n", carNumber);
+}
+
+int main() {
+    CarRegistration cars[MAX_CARS] = {
+        {"MH 12 AG 1", "Aagam Gadiya", "9372024905", "Wagholi,Pune"},
+        {"MH 12 SD 1115", "Shantanu Deshmukh", "9529966033", "Kothrud,Pune"},
+        {"MH 28  OC 1896", "Om chaudary", "9567856575", "Buldhana"},
+          };
+    
+    int count = 3; // Number of entries in the array
+    char searchNumber[MAX_LENGTH];
+
+    printf("Enter car number to search: ");
+    fgets(searchNumber, sizeof(searchNumber), stdin);
+    searchNumber[strcspn(searchNumber, "\n")] = '\0'; // Remove newline character
+
+    // Validate input
+    if (strlen(searchNumber) == 0) {
+        printf("Error: Invalid input. Please enter a valid car number.\n");
+    } else {
+        searchCar(cars, count, searchNumber);
+    }
+
+    return 0;
+}
